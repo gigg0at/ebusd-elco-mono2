@@ -92,6 +92,14 @@ In der `mqtt-hassio.cfg` muss die Zeile so stehen – **ohne `w`**, damit Home A
 filter-direction = r|u
 ```
 
+Die Standard-`mqtt-hassio.cfg` lässt außerdem nur Werte durch, deren Name einen Begriff aus `filter-name` enthält (`temp`, `status`, `hours` …). Druck, Durchfluss, Drehzahlen, Verdichterstatus und die Einstellungen kämen sonst **nicht** in Home Assistant an. Diese Zeile ersetzen:
+
+```
+filter-name = status|temp|humidity|yield|count|energy|power|runtime|hours|starts|mode|curve|^load$|^party$|sensor|timer|pressure|flow|frequency|speed|_state|valve|current|cycles|error|thermostat|heater|request|setback|shift|limits|regulation|winter|scheme|ext_heat_logic|integral|prerun|overrun|circulation|drying|silent|input|setpoint|pwm|main_pump|ext_pump|pump_operation|pump_antiblock|protection|modulation|wifi|activation
+```
+
+Bewusst kein allgemeines `pump` oder leerer Filter: Bei `filter-seen = 5` fragt ebusd alle Werte ab, die durch den Filter passen. Ein offener Filter würde viele Upstream-Zeilen abfragen, die die Mono.2 nicht kennt (Kessel-, Kosten-, Hybrid-Parameter).
+
 Add-on neu starten.
 
 ### Prüfen
