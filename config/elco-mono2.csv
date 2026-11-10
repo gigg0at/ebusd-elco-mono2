@@ -110,7 +110,6 @@ r,energymgr,aux_2_afr_mean,HV IN 3,,18,2000,d32a,,s,IGN:1,,,,,,BCD,0=None;1=Faul
 r,energymgr,aux_2_pump,HV IN 3,,18,2000,cf2c,,s,IGN:1,,,,,,BCD,0=Auxiliary circulator;1=Cooling circulator;2=Buffer circulator
 
 #Energy Manager - HP Settings 1
-r,energymgr,hydraulic_scheme,Hydraulic Scheme,,18,2000,dc28,,s,IGN:1,,,,,,BCD,0=none;1=bolier;2=boiler_buffer
 r,energymgr,hp_disable_ext_temp_threshold,HP disable ext. temp threshold,,18,2000,7226,,s,IGN:1,,,,,,SIN,10,°C
 r,energymgr,boiler_disable_ext_temp_threshold,Boiler disable ext. temp threshold,,18,2000,7126,,s,IGN:1,,,,,,SIN,10,°C
 r,energymgr,heating_mode,Heating Mode,,18,2000,c728,,s,IGN:1,,,,,,BCD,0=eco;1=eco_plus;2=average;3=comfort;4=comfort_plus
@@ -119,7 +118,6 @@ r,heatpump,boost_time,HP boost time,,18,2000,602b,,s,IGN:1,,,,,,MIN,,min
 #r,energymgr,ext_temp_offset,External Temp Correction,,18,2000,7426,,s,IGN:1,,,,,,SIN,10,°C
 r,energymgr,protech_anode,ProTech Anode,,18,2000,0d23,,s,IGN:1,,,,,s,onoff
 r,energymgr,pump_antiblock,Pump Antiblocking,,18,2000,1823,,s,IGN:1,,,,,s,onoff
-r,heatpump,pump_dt_setpoint,dT Pumpe Sollwert,,1e,2000,7b2b,,s,IGN:1,,,,,,SIN,10,°C
 b,energymgr,em_delta_t,EM Delta T for Modulation,,fe,200f,7b2b,,,SIN,10,°C
 
 
@@ -182,7 +180,7 @@ r,energymgr,boiler_estimated_cost,Boiler Current Calculated Cost,,18,2000,7247,,
 
 #Menu - Hybrid System Statistics
 
-r,energymgr,heatpump_only_op_hours,Heatpump Only Operating Hours,,18,2000,40d1,,s,IGN:1,,,,,,UIN,,h
+r9,energymgr,heatpump_only_op_hours,Heatpump Only Operating Hours,,18,2000,40d1,,s,IGN:1,,,,,,UIN,,h
 r,energymgr,heatpump_and_boiler_operating_hours,Heatpump and Boiler Combined Operating Hours,,18,2000,4ed1,,s,IGN:1,,,,,,UIN,,h
 r9,energymgr,heatpump_ingnition_cycles,Heatpump Ignition Cycles,,1e,2000,40d8,,s,IGN:1,,,,,,UIN,,n
 r9,energymgr,heatpump_defrost_op_hours,Heatpump Defrosting Operating Hours,,1e,2000,47d1,,s,IGN:1,,,,,,UIN,,h
@@ -203,8 +201,6 @@ b,energymgr,ext_temp,External Temp,,fe,200f,7647,,,SIN,10,°C
 
 b,energymgr,heat_temp_range,Heating Temp Range,13,fe,2020,0081,z1_heat_range,,BCD,0=low;1=high,,,,,IGN:2,,,,z2_heat_range,,BCD,0=low;1=hign,,,,s,IGN:2,,,,z3_heat_range,,BCD,0=low;1=high
 b,energymgr,heat_therm_type_selection,Heating Thermolregulation Type,,fe,200f,c079,z1_therm_type,,BCD,0=fixed_temp;1=basic_on_off;2=outdoor_temp_only;3=room_temp_only;4=outdoor_and_room,,,,s,IGN:3,,,,z2_therm_type,s,BCD,0=fixed_temp;1=basic_on_off;2=outdoor_temp_only;3=room_temp_only;4=outdoor_and_room,,,,s,IGN:3,,,,z3_therm_type,s,BCD,0=fixed_temp;1=basic_on_off;2=outdoor_temp_only;3=room_temp_only;4=outdoor_and_room
-b,energymgr,heat_slope,Heating Slope,,fe,2020,6a71,z1_heat_slope,,UIN,100,,,,m,IGN:2,,,,z2_heat_slope,,UIN,100,,,,m,IGN:2,,,,z3_heat_slope,,UIN,100
-b,energymgr,heat_request,Heating Request,13,fe,2010,0191,z1_heat_request,,BCD,0=off;1=on,,,,,IGN:3,,,,z2_heat_request,,BCD,0=off;1=on,,,,,IGN:3,,,,z3_heat_request,,BCD,0=off;1=on
 b,energymgr,cooling_temps,Cooling Temps Range,,fe,2020,6a75,z1_cool_temp,,SIN,10,°C,,,,IGN:2,,,,z2_cool_temp,,SIN,10,°C,,,,IGN:2,,,,z3_cool_temp,,SIN,10,°C,,,,IGN:2,,,,cooling_setpoint_temp,,SIN,10,°C
 b,energymgr,cooling_temp_range,Cooling Temp Range,13,fe,2020,0085010086010087010681,z1_cool_range,,BCD,0=fancoil;1=underfloorheating
 b,energymgr,cool_slope,Cooling Slope,,fe,2020,7577,ign,m,IGN:4,,,,z1_cool_slope,s,UIN,100,,,,s,IGN:2,,,,z2_cool_slope,s,UIN,100,,,,s,IGN:2,,,,z3_cool_slope,s,UIN,100
@@ -240,7 +236,6 @@ b,energymgr,auto_function,Auto Function,,fe,200f,0520,,,onoff
 
 #Heatpump direct ask
 r9,heatpump,silent_mode,Silent Mode,,18,2000,0320,,s,IGN:1,,,,,s,onoff
-r,heatpump,pump_operation,Pump Operation,,18,2000,c32a,ign,s,IGN:1,,,,,s,UCH,0=low_speed;1=high_speed;2=modulating
 
 #Menu - HP Diagnostic 1 Menu
 r1,heatpump,heatpump_ext_temp,External Temp,,1e,2000,7810,,s,IGN:1,,,,,,SIN,10,°C
@@ -253,8 +248,6 @@ r1,heatpump,heatpump_condenser_outlet_temp,Heatpump Condenser Outlet Temp,,1e,20
 r,heatpump,heatpump_teo_temp,Heatpump Condenser Outlet Water Temp,,1e,2000,7417,,s,IGN:1,,,,,,SIN,10,°C
 #Menu - HP Diagnostic 2 Menu
 r1,heatpump,heatpump_mode,Heatpump Operating Mode,,1e,2000,ca46,,s,IGN:1,,,,,,UCH,0=OFF;1=Stand_by;2=Cooling;3=Heating;4=Heating_boost;5=Cooling_boost;6=Heating_rating;7=Cooling_rating;8=Antifreeze;9=Defrost;10=Overtemp_prot;11=Timeguard;12=System_error;13=Reset_service;14=Coolant_recovery;15=Soft_fail,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-r,heatpump,heatpump_last_error,Heatpump Last Error - TBC,,18,2000,c54b,,s,IGN:1,,,,,,BCD
-r,heatpump,heatpump_safety_thermostat,Heatpump Safety Thermostat,,18,2000,1A11,,s,IGN:1,,,,,,BCD,0=open;1=closed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 r1,heatpump,heatpump_flowmeter,Heatpump Flow Meter,,1e,2000,6e13,,s,IGN:1,,,,,,UIN,10,L
 r3,heatpump,heatpump_flow_switch,Flow Switch State,,1e,2000,0c45,,s,IGN:1,,,,,,BCD,0=open;1=closed
 r,heatpump,heatpump_shutoff_protection,Heatpump Compressor Shutoff Protection,,1e,2000,1045,,s,IGN:1,,,,,s,onoff,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -264,19 +257,18 @@ r1,heatpump,heatpump_cond_pressure,Heatpump Condenser Pressure,,1e,2000,6d4f,,s,
 r,heatpump,heatpump_inverter_nominal_power,Heatpump Inverter Nominal Power,,1e,2000,6947,,s,IGN:1,,,,,,UIN,,kW
 r1,heatpump,heatpump_compr_frequency,Heatpump Compressor Frequency,,1e,2000,cb46,,s,IGN:1,,,,,s,UCH,,Hz
 r,heatpump,heatpump_compr_modulation,Heatpump Compressor Modulation,,1e,2000,c446,,s,IGN:1,,,,,s,UCH,,pct
-r,heatpump,heatpump_electric_heater,Heatpump Electric Heater,,18,2000,1c45,,s,IGN:1,,,,,s,onoff
 #r,heatpump,heatpump_main_pump,Heatpump Main Pump,,18,2000,c200,,s,IGN:1,,,,,s,onoff
 r1,heatpump,heatpump_fan1_speed,Heatpump Fan1 Speed,,1e,2000,6e4f,,s,IGN:1,,,,,,UIN
 r,heatpump,heatpump_fan2_speed,Heatpump Fan2 Speed,,1e,2000,6f4f,,s,IGN:1,,,,,,UIN
 r3,heatpump,heatpump_exp_valve,Heatpump Espansion Valve,,1e,2000,704f,,s,IGN:1,,,,,,UIN
 #strange results, to be confirmed
-r,heatpump,heatpump_compr_current,Heatpump Comp Current,,1e,2000,714f,,s,UIN,10,A
+r,heatpump,heatpump_compr_current,Heatpump Comp Current,,1e,2000,714f,,s,IGN:1,,,,,s,UIN,10,A
 #Menu - HP Diagnostic 4 Menu
-r1,heatpump,heatpump_compressor_state,Heatpump Compr State,,1e,2000,1145,,s,onoff
+r1,heatpump,heatpump_compressor_state,Heatpump Compr State,,1e,2000,1145,,s,IGN:1,,,,,s,onoff
 r,heatpump,heatpump_preheater_state,Heatpump PreHeater State,,1e,2000,1245,,s,IGN:1,,,,,s,onoff
-r,heatpump,heatpump_fan1_state,Heatpump Fan1 State,,1e,2000,1445,,s,onoff
-r,heatpump,heatpump_fan2_state,Heatpump Fan2 State,,1e,2000,1545,,s,onoff
-r,heatpump,heatpump_4way_valve_state,Heatpump 4Way Valve State,,1e,2000,1345,,s,BCD,0=heating;1=cooling
+r,heatpump,heatpump_fan1_state,Heatpump Fan1 State,,1e,2000,1445,,s,IGN:1,,,,,s,onoff
+r,heatpump,heatpump_fan2_state,Heatpump Fan2 State,,1e,2000,1545,,s,IGN:1,,,,,s,onoff
+r,heatpump,heatpump_4way_valve_state,Heatpump 4Way Valve State,,1e,2000,1345,,s,IGN:1,,,,,s,BCD,0=heating;1=cooling
 r,heatpump,heatpump_base_pane_heater_state,Heatpump Base Pane Heater State,,1e,2000,1645,,s,onoff
 
 #Menu - EM Diagnostics - 1 Input Menu
@@ -284,7 +276,6 @@ r3,energymgr,hybrid_status,Hybrid Status,,18,2000,c94b,,s,IGN:1,,,,,,UCH,0=Stand
 b,energymgr,hybrid_LWT_setpoint,Hybrid LWT Setpoint,,fe,2010,6047,,,SIN,10,°C
 r,energymgr,energymgr_hv_inv_1_status,HV IN 1,,18,2000,1d11,,s,IGN:1,,,,,s,onoff
 r,energymgr,energymgr_hv_inv_2_status,HV IN 2,,18,2000,1c11,,s,IGN:1,,,,,s,onoff
-r,energymgr,energymgr_hv_inv_3_status,HV IN 3,,18,2000,1f11,,s,IGN:1,,,,,s,onoff
 r,energymgr,energymgr_aux1_input,AUX 1 Input State,,18,2000,1e11,,s,IGN:1,,,,,s,onoff
 #Menu - EM Diagnostics - 2 Output Menu
 r,heatpump,heatpump_main_pump,HP Main Pump,,18,2000,c200,,s,IGN:1,,,,,s,onoff
@@ -296,8 +287,6 @@ r,energymgr,energymgr_aux1_out,HP Aux1 Output,,18,2000,1803,,s,IGN:1,,,,,s,onoff
 r,energymgr,energymgr_aux2_out,HP Aux2 Output,,18,2000,1A03,,s,IGN:1,,,,,s,onoff
 
 #Menu - PWM
-r,heatpump,pump_max_pwm,HP Pump Max PWM,,1e,2000,d32c,,s,IGN:1,,,,,s,UCH,,pct
-r,heatpump,pump_min_pwm,HP Pump Min PWM,,1e,2000,d22c,,s,IGN:1,,,,,s,UCH,,pct
 
 
 #Other Undocumented Values
@@ -350,7 +339,6 @@ b,gateway,internet_wheather_temp_offset,Internet Wheather Temp Offset,,fe,200e,7
 #r,energymgr,heat_room_temp_influence,Heating Room Temp Influence,,,2020,c07f01c279,z1_heat_room_temp_influence,s,UCH,,,,,s,IGN:2,,,,z2_heat_room_temp_influence,s,UCH,,,,,s,IGN:2,,,,z3_heat_room_temp_influence,s,UCH
 b,energymgr,heat_request_mode,Heating Request Mode,,fe,2020,cb7f00ce79,z1_heat_request_mode,,BCD,0=standard;1=no_time_program;2=forced,,,,,IGN:2,,,,z2_heat_request_mode,,BCD,0=standard;1=no_time_program;2=forced,,,,,IGN:2,,,,z3_heat_request_mode,,BCD,0=standard;1=no_time_program;2=forced
 # enery manager current setopint temp broadcast for Z1,Z2 and Z3
-b,energymgr,setpoint_temp,Current Setpoint Temp,13,fe,2010,6996,z1_setpoint_temp,,SIN,10,°C,,,,IGN:3,,,,z2_setpoint_temp,,SIN,10,°C,,,,IGN:3,,,,z3_setpoint_temp,,SIN,10,°C
 
 
 #DHW Buffer related messages
@@ -413,12 +401,47 @@ b,energymgr,z1_reduced_temp,Z1 Absenktemperatur,,fe,200e,6371,,,SIN,10,°C,,,m,I
 b,energymgr,z1_heat_offset_shift,Z1 Parallelverschiebung,,fe,200e,6471,,,SIN,10,°C,,,m,IGN:4
 
 # Zone 1 – zyklische Parameter-Rundrufe des Energy Managers (~alle 35 min)
-b,energymgr,z1_flow_limits,Z1 Vorlaufgrenzen,,fe,2020,6071,z1_max_flow_temp,m,SIN,10,°C,Max Vorlauf 4.2.5,,m,IGN:2,,,,z1_min_flow_temp,m,SIN,10,°C,Min Vorlauf 4.2.6,,m,IGN:2,,,,z1_parallel_shift,m,SIN,10,°C,Parallelverschiebung 4.2.3
-b,energymgr,z1_heat_curve,Z1 Heizkurve 4.2.2,,fe,2020,6971,,m,IGN:4,,,,,m,UIN,100,,,,m,IGN:4
-b,energymgr,z1_regulation,Z1 Regelung,,fe,2020,6c71,,m,IGN:4,,,,z1_control_type,m,UCH,0=Feste Vorlauftemperatur;1=EIN/AUS-Thermostat;2=Nur Raumfuehler;3=Nur Aussenfuehler;4=Raum- und Aussenfuehler,,Regelungsart 4.2.1,,m,IGN:2,,,,z1_room_influence,m,UCH,,,Raumeinfluss 4.2.4
-b,energymgr,z1_summer_winter,Z1 Sommer Winter,,fe,2020,7971,z1_sw_threshold,m,SIN,10,°C,S/W Grenzwert 4.1.1,,m,IGN:2,,,,z1_sw_delay,m,UIN,,min,S/W Verzoegerung 4.1.2,,m,IGN:3
-b,energymgr,z1_temp_range_bc,Z1 Temperaturbereich,,fe,2020,c979,,m,IGN:3,,,,z1_temp_range,m,UCH,0=Niedrige Temperatur;1=Hohe Temperatur,,Temperaturbereich 4.2.0,,m,IGN:4
+b,energymgr,z1_flow_limits,Z1 Vorlaufgrenzen,13,fe,2020,6071,z1_max_flow_temp,m,SIN,10,°C,Max Vorlauf 4.2.5,,m,IGN:2,,,,z1_min_flow_temp,m,SIN,10,°C,Min Vorlauf 4.2.6,,m,IGN:2,,,,z1_parallel_shift,m,SIN,10,°C,Parallelverschiebung 4.2.3
+b,energymgr,z1_heat_curve,Z1 Heizkurve 4.2.2,13,fe,2020,6971,,m,IGN:4,,,,,m,UIN,100,,,,m,IGN:4
+b,energymgr,z1_regulation,Z1 Regelung,13,fe,2020,6c71,,m,IGN:4,,,,z1_control_type,m,UCH,0=Feste Vorlauftemperatur;1=EIN/AUS-Thermostat;2=Nur Raumfuehler;3=Nur Aussenfuehler;4=Raum- und Aussenfuehler,,Regelungsart 4.2.1,,m,IGN:2,,,,z1_room_influence,m,UCH,,,Raumeinfluss 4.2.4
+b,energymgr,z1_summer_winter,Z1 Sommer Winter,13,fe,2020,7971,z1_sw_threshold,m,SIN,10,°C,S/W Grenzwert 4.1.1,,m,IGN:2,,,,z1_sw_delay,m,UIN,,min,S/W Verzoegerung 4.1.2,,m,IGN:3
+b,energymgr,z1_temp_range_bc,Z1 Temperaturbereich,13,fe,2020,c979,,m,IGN:3,,,,z1_temp_range,m,UCH,0=Niedrige Temperatur;1=Hohe Temperatur,,Temperaturbereich 4.2.0,,m,IGN:4
 
-# UNBESTÄTIGT – Rundrufe des Bedienteils (Remocon Plus.2). Zum Aktivieren das '#' entfernen.
-#b,panel,room_temp,Raumtemperatur Zone 1,70,fe,2010,7118,,m,SIN,10,°C,,,m,IGN:1
-#b,panel,room_humidity,Raumluftfeuchte,70,fe,2010,489d,,m,UIN,10,%,,,m,IGN:1
+
+# ---- Menü-Rundgang 10.11.2026 (zugeordnet über Bedienteil-Screenshots) ----
+# Zone 1 – Rundrufe (passiv mithören)
+b,zone1,room_temp,Raumtemperatur Bedienteil 4.3.0,70,fe,2010,7118,,m,SIN,10,°C,,,m,IGN:1
+b,zone1,room_humidity,Relative Luftfeuchte 4.3.7,13,fe,2010,c9c1,,m,UCH,,%,,,m,IGN:1
+b,zone1,heat_request,Waermeanforderung Zone 1 4.3.4,13,fe,2010,0191,,m,UCH,0=off;1=on,,,,m,IGN:1
+# Zone 1 – Antworten auf Menü-Abfragen des Bedienteils (nur aktuell, wenn das Menü geöffnet wird)
+b,zone1,temp_control_type,Art der Temperaturregelung 4.2.7,13,fe,200e,0881,,m,UCH,0=Klassik;1=Smart,,,,m,IGN:2
+b,zone1,quick_setback,Schnellabsenkung 4.2.8,13,fe,200e,db89,,m,UCH,0=off;1=on,,,,m,IGN:2
+b,zone1,heat_request_mode,Waermeanforderungsmodus 4.2.9,13,fe,200e,ce79,,m,UCH,0=Standard;1=Zeitprogramm aus;2=Erzwungen,,,,m,IGN:2
+
+# Energy Manager – Einstellungen (Parameter lesen 2001: Wert, Min, Max)
+r9,energymgr,ext_heat_logic,Aktivierungslogik ext. Waermeerzeuger 1.3.0,,18,2001,1488,,s,UCH,,,,,s,IGN:2
+r9,energymgr,backup_heater_setting,Elektroeinsatz Einstellung 1.3.1,,18,2001,dd28,,s,UCH,,,,,s,IGN:2
+r9,energymgr,backup_heater_delay,Elektroeinsatz Verzoegerung 1.3.3,,18,2001,da8d,,s,UCH,,min,,,s,IGN:2
+r9,energymgr,backup_release_integral,Freigabeintegralschwelle 1.3.4,,18,2001,6f8c,,s,UIN,,,,,s,IGN:4
+r9,energymgr,backup_reset_integral,Integralschwelle zuruecksetzen 1.3.5,,18,2001,708c,,s,UIN,,,,,s,IGN:4
+r9,energymgr,pump_prerun,Vorlaufzeit Heizkreispumpe 1.6.0,,18,2001,d527,,s,UCH,,s,,,s,IGN:2
+r9,energymgr,new_request_delay,Verzoegerung neue Anforderung 1.6.1,,18,2001,d627,,s,UCH,,s,,,s,IGN:2
+r9,energymgr,pump_overrun,Nachzirkulation Heizung 1.6.2,,18,2001,d727,,s,UCH,,min,,,s,IGN:2
+r9,heatpump,pump_operation,Pumpenbetrieb 1.6.3,,18,2001,c32a,,s,UCH,0=low_speed;1=high_speed;2=modulating,,,,s,IGN:2
+r9,energymgr,antifreeze_circulation,WP Frostschutz Zirkulation 1.6.4,,18,2001,c58f,,s,UCH,,,,,s,IGN:2
+r9,heatpump,silent_start,Leiser Betrieb Startzeit 1.12.3,,18,2001,692b,,s,VTM,,,,,s,IGN:4
+r9,heatpump,silent_end,Leiser Betrieb Endezeit 1.12.4,,18,2001,6a2b,,s,VTM,,,,,s,IGN:4
+r9,energymgr,floor_drying,Estrichtrocknung 1.12.5,,18,2001,de28,,s,UCH,,,,,s,IGN:2
+r9,energymgr,hydraulic_scheme,Hydraulikschema 1.16.1,,18,2001,d4f7,,s,UCH,,,,,s,IGN:2
+r3,energymgr,room_thermostat_1,Raumthermostat 1 1.17.0,,18,2001,011f,,s,onoff,,,,,s,IGN:2
+r9,energymgr,room_thermostat_2,Raumthermostat 2 1.17.1,,18,2001,021f,,s,onoff,,,,,s,IGN:2
+r9,energymgr,energymgr_aux2_input,AUX Eingang 2 1.17.3,,18,2001,1f11,,s,onoff,,,,,s,IGN:2
+r9,energymgr,backup_heater_hours,Betriebsstunden Elektroeinsatz Stufe 1 1.14.3,,18,2000,51d1,,s,IGN:1,,,,,,UIN,,h
+
+# Wärmepumpe (1e) – Einstellungen und Diagnose (Parameter lesen 2001)
+r9,heatpump,pump_dt_setpoint,dT Pumpe Sollwert 13.4.4,,1e,2001,7b2b,,s,SIN,10,°C,,,s,IGN:4
+r9,heatpump,pump_max_pwm,Max. Pumpe PWM 13.4.5,,1e,2001,d32c,,s,UCH,,%,,,s,IGN:2
+r9,heatpump,pump_min_pwm,Min. Pumpe PWM 13.4.6,,1e,2001,d22c,,s,UCH,,%,,,s,IGN:2
+r3,heatpump,heatpump_last_error,Letzter Wechselrichterfehler 13.9.1,,1e,2001,c54b,,s,UCH,,,,,s,IGN:2
+r3,heatpump,heatpump_safety_thermostat,Sicherheitsthermostat 13.9.2,,1e,2001,0316,,s,UCH,0=open;1=closed,,,,s,IGN:2
+r3,heatpump,heatpump_electric_heater,Elektroheizeinsatz 1 13.10.3,,1e,2001,1c45,,s,onoff,,,,,s,IGN:2

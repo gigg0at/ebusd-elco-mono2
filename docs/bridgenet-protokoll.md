@@ -49,14 +49,16 @@ Beispiele:
 70 1e 2000 04 d140 ca46 → 03 03 03 03      Konfig.-Zähler 3, Modus 3 (Heizen)
 ```
 
-### 2001 direkt an 18 (Parameter lesen)
+### 2001 direkt an 18 / 1e (Parameter lesen)
 
 ```
 Antwort:  NN  Wert  Min  Max     (je 1 oder 2 Byte, kein Statusbyte)
 ```
 ```
 18 2001 02 7d2b → 06 0000 0000 6400   Korrektur Vorlauf WP = 0,0 (0…10,0)
-18 2001 02 c328 → 03 02 01 02         Pumpenbetrieb = 2 (1…2)
+18 2001 02 c32a → 03 02 00 02         Pumpenbetrieb 1.6.3 = 2 (0…2)
+18 2001 02 692b → 06 0006 0000 2d17   Leiser Betrieb Start = 06:00 (Bytes mm hh, 00:00…23:45)
+1e 2001 02 7b2b → 06 3200 3200 c800   dT Pumpe Sollwert = 5,0 (5,0…20,0)
 18 2001 02 6471 → 00                  Zonenparameter: per direkter Abfrage nicht lesbar
 ```
 
@@ -65,6 +67,7 @@ Antwort:  NN  Wert  Min  Max     (je 1 oder 2 Byte, kein Statusbyte)
 ```
 13 fe 200e 08 6271 d700 6400 2c01    Z1 T Tag = 21,5 °C (10,0 … 30,0)
 13 fe 200e 08 6471 3c00 74ff 8c00    Z1 Parallelverschiebung = 6,0 (−14,0 … 14,0)
+13 fe 200e 05 0881 00 00 01          Art der Temperaturregelung = 0 Klassik (1-Byte-Code: Wert Min Max je 1 Byte)
 ```
 
 ### 2020-Rundruf des Energy Managers (Einstellungen)

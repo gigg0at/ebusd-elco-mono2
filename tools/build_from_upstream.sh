@@ -53,7 +53,7 @@ b,energymgr,z1_regulation,Z1 Regelung,,fe,2020,6c71,,m,IGN:4,,,,z1_control_type,
 b,energymgr,z1_summer_winter,Z1 Sommer Winter,,fe,2020,7971,z1_sw_threshold,m,SIN,10,°C,S/W Grenzwert 4.1.1,,m,IGN:2,,,,z1_sw_delay,m,UIN,,min,S/W Verzoegerung 4.1.2,,m,IGN:3
 b,energymgr,z1_temp_range_bc,Z1 Temperaturbereich,,fe,2020,c979,,m,IGN:3,,,,z1_temp_range,m,UCH,0=Niedrige Temperatur;1=Hohe Temperatur,,Temperaturbereich 4.2.0,,m,IGN:4
 
-# UNBESTÄTIGT – Rundrufe des Bedienteils (Remocon Plus.2). Zum Aktivieren das '#' entfernen.
-#b,panel,room_temp,Raumtemperatur Zone 1,70,fe,2010,7118,,m,SIN,10,°C,,,m,IGN:1
-#b,panel,room_humidity,Raumluftfeuchte,70,fe,2010,489d,,m,UIN,10,%,,,m,IGN:1
 ADD
+
+# 8) Korrekturen und Ergänzungen aus dem Menü-Rundgang 10.11.2026
+sh "$(dirname "$0")/patch_menuerundgang.sh" "$DST"

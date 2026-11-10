@@ -17,16 +17,17 @@ Elco gehört zur Ariston-Gruppe. Die Geräte sprechen auf dem Bus das hersteller
 | `docs/parameter-zuordnung.md` | Menüpunkte der Installateur-Anleitung ↔ Bus-Codes |
 | `docs/bridgenet-protokoll.md` | Adressen, Befehle und Telegrammformate |
 | `tools/build_from_upstream.sh` | erzeugt `elco-mono2.csv` reproduzierbar aus der Upstream-`ariston.csv` |
+| `tools/patch_menuerundgang.sh` | Korrekturen und Ergänzungen aus dem Menü-Rundgang (wird vom Build aufgerufen, lässt sich auch auf eine bestehende Datei anwenden) |
 
 ---
 
 ## Was ausgelesen wird
 
-**Wärmepumpe** (Menü 13 der Anleitung): Außentemperatur, Vorlauf, Rücklauf, Verdampfer-, Sauggas-, Heißgas- und Kondensatoraustritt-Temperatur, Verdichterfrequenz, elektrische Leistungsaufnahme, Durchfluss, Verdampfer- und Kondensationsdruck, Expansionsventil, Lüfterdrehzahl, Betriebsmodus (Heizen / Zeitschutz / Standby / Abtauen …), Strömungsschalter, Silent Mode, Betriebsstunden, Abtaustunden, Verdichterstarts, Wechselrichter-Nennleistung, dT-Pumpen-Sollwert.
+**Wärmepumpe** (Menü 13 der Anleitung): Außentemperatur, Vorlauf, Rücklauf, Verdampfer-, Sauggas-, Heißgas- und Kondensatoraustritt-Temperatur, Verdichterfrequenz, elektrische Leistungsaufnahme, Durchfluss, Verdampfer- und Kondensationsdruck, Expansionsventil, Lüfterdrehzahlen, Betriebsmodus (Heizen / Zeitschutz / Standby / Abtauen …), Strömungsschalter, Sicherheitsthermostat, letzter Wechselrichterfehler, Status von Verdichter, Lüftern, 4-Wege-Ventil, Vorwärmung, Wannenheizung und Elektroheizeinsatz, Betriebsstunden, Abtaustunden, Verdichterstarts, Wechselrichter-Nennleistung, dT-Pumpen-Sollwert, Pumpen-PWM-Grenzen.
 
-**Energy Manager** (Menü 1): Anlagenstatus, Vorlauf-Sollwert, Anlagendruck, Systemaußentemperatur, Korrektur Vorlauftemperatur, Abschalt-Außentemperaturen, Betriebsstunden.
+**Energy Manager** (Menü 1): Anlagenstatus, Hydraulikschema, Vorlauf-Sollwert, Anlagendruck, Systemaußentemperatur, Korrektur Vorlauftemperatur, Abschalt-Außentemperaturen, Einstellungen Elektroeinsatz (1.3), Wasserzirkulation (1.6), Leiser Betrieb mit Start-/Endzeit (1.12), Eingänge (Raumthermostate, AUX, HV), Betriebsstunden Heizen und Elektroeinsatz.
 
-**Zone 1** (Menü 4, passiv mitgehört): Heizkurve, Parallelverschiebung, Min-/Max-Vorlauf, Regelungsart, Raumeinfluss, Temperaturbereich, Komfort- und Absenktemperatur, aktueller Raum-Sollwert, Sommer/Winter-Umschaltung.
+**Zone 1** (Menü 4, passiv mitgehört): Raumtemperatur und relative Luftfeuchte vom Bedienteil, Wärmeanforderung, Heizkurve, Parallelverschiebung, Min-/Max-Vorlauf, Regelungsart, Raumeinfluss, Temperaturbereich, Komfort- und Absenktemperatur, aktueller Raum-Sollwert, Sommer/Winter-Umschaltung.
 
 Die vollständige Liste mit Codes steht in [`docs/parameter-zuordnung.md`](docs/parameter-zuordnung.md).
 
@@ -69,6 +70,8 @@ mkdir -p /config/elco
 ```
 
 Dann `config/elco-mono2.csv` und `config/_templates.csv` aus diesem Repository nach `/config/elco/` kopieren.
+
+**Bestehende Installation aktualisieren:** Entweder die neue `elco-mono2.csv` kopieren oder `tools/patch_menuerundgang.sh` auf die vorhandene Datei anwenden (`sh patch_menuerundgang.sh /config/elco/elco-mono2.csv`, vorher eine Sicherung anlegen). Danach das Add-on neu starten.
 
 ### Startoptionen
 
@@ -117,7 +120,7 @@ ebusctl read -f -c heatpump heatpump_power_consumption
 ebusctl read -f -c energymgr hybrid_status
 ```
 
-Nach 2–3 Minuten erscheinen in Home Assistant unter *Einstellungen → Geräte & Dienste → MQTT* je ein Gerät für die Wärmepumpe (`heatpump`) und den Energy Manager (`energymgr`) mit laufend aktualisierten Werten. Die genauen Gerätenamen hängen von der `mqtt-hassio.cfg` ab.
+Nach 2–3 Minuten erscheinen in Home Assistant unter *Einstellungen → Geräte & Dienste → MQTT* je ein Gerät für die Wärmepumpe (`heatpump`), den Energy Manager (`energymgr`) und die Zone 1 (`zone1`) mit laufend aktualisierten Werten. Die genauen Gerätenamen hängen von der `mqtt-hassio.cfg` ab.
 
 ---
 
@@ -127,23 +130,22 @@ Nach 2–3 Minuten erscheinen in Home Assistant unter *Einstellungen → Geräte
 - **Zonen-Parameter** (Heizkurve usw.) schickt der Energy Manager nur etwa **alle 35 Minuten** von selbst. Nach einem Neustart dauert es entsprechend, bis sie gefüllt sind.
 - **„invalid position“ nach einem Neustart:** ebusd liest beim Start einmal alle Definitionen. Einzelne Werte, die eine Anlage nicht hat, erzeugen dabei harmlose Fehler.
 - **„arbitration lost“:** gelegentlich normal (mehrere Teilnehmer senden gleichzeitig). Gehäuft → `ens:` im Device fehlt oder WLAN-Empfang des Adapters schlecht.
-- **Verdichter-Laufstatus:** `heatpump_compressor_state` zeigt auch bei 0 Hz „on“. Zuverlässiger ist `heatpump_compr_frequency > 0`.
+- **Zähler:** Das Bedienteil zeigt Betriebsstunden und Starts geteilt durch 10 („h/10“, „n/10“). Auf dem Bus und in Home Assistant stehen die vollen Werte.
+- **Einstellungen (`r9`)** werden mit dem Parameter-Lesebefehl `2001` abgefragt und nur selten aktualisiert. Eine Änderung am Bedienteil ist daher erst nach einiger Zeit sichtbar.
 - **Kein Warmwasserspeicher?** Dann liefern Speichertemperaturen 3276,7 (= kein Fühler). Das ist korrekt.
 - **Elco-Cloud (Remocon NET):** stört nicht. ebusd hört die Abfragen von Bedienteil und Gateway sogar mit (z. B. Anlagendruck).
 
 ---
 
 ## 4. Status
-
-Getestet an einer Aerotop Mono.2, 8 kW, Monoblock, nur Heizbetrieb, ohne Warmwasserspeicher, eine Heizzone, mit Remocon NET.
-
 | Bereich | Status |
 |---|---|
-| Wärmepumpen-Messwerte (1e) | ✔ gegen Bedienteil geprüft |
-| Energy-Manager-Status, Anlagendruck | ✔ |
-| Zone-1-Parameter (Rundrufe) | ✔ dekodiert, Parallelverschiebung am Gerät bestätigt |
-| Raumtemperatur / Luftfeuchte vom Bedienteil | ⏳ in der CSV auskommentiert, noch nicht bestätigt |
-| Einheit der Zähler (Menü 13.7: „h/10“, „n/10“) | ⏳ in Prüfung |
+| Wärmepumpen-Messwerte und -Status (1e) | ✔ gegen Bedienteil geprüft (Menü-Rundgang) |
+| Energy-Manager-Status, Einstellungen, Eingänge, Anlagendruck | ✔ |
+| Zone-1-Parameter | ✔ dekodiert, Heizkurve und Parallelverschiebung am Gerät bestätigt |
+| Raumtemperatur / Luftfeuchte vom Bedienteil | ✔ (Menü 4.3.0 / 4.3.7) |
+| Zähler (Menü 13.7, 1.14) | ✔ Bus liefert volle Werte (Anzeige „/10“) |
+| Energiezähler, einige Codes (siehe `docs/parameter-zuordnung.md`, „Offen“) | ⏳ in Prüfung |
 | Zeitprogramme (`2050`–`2052`, `2073`) | ✘ nicht dekodiert (in der App sichtbar) |
 | Warmwasser, Kühlen, Zonen 2–6, Puffer | ✘ nicht getestet (an der Testanlage nicht vorhanden) |
 
