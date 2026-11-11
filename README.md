@@ -165,4 +165,6 @@ Rückmeldungen von anderen Anlagenvarianten sind willkommen.
 
 Die Nachrichtendefinitionen sind abgeleitet aus [wrongisthenewright/ebusd-configuration-ariston-bridgenet](https://github.com/wrongisthenewright/ebusd-configuration-ariston-bridgenet) (Ergebnis der Community auf energeticambiente.it, Beiträge aus [ysard/ebusd_configuration_chaffoteaux_bridgenet](https://github.com/ysard/ebusd_configuration_chaffoteaux_bridgenet) und [komw/ariston-bus-bridgenet-ebusd](https://github.com/komw/ariston-bus-bridgenet-ebusd)) und stehen daher ebenfalls unter der **GPL-3.0** (siehe `LICENSE`).
 
+Die Programmierarbeit (Protokollanalyse, Konfiguration und Dokumentation) hat das KI-Modell Opus 5.5 (mittel) übernommen. Messungen, Menü-Rundgang und Tests an der Anlage stammen vom Repository-Inhaber.
+
 Kein offizielles Produkt von Elco oder Ariston. Nutzung auf eigene Verantwortung.
